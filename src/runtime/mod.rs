@@ -10,7 +10,7 @@ pub(crate) mod driver;
 pub(crate) use context::RuntimeContext;
 
 thread_local! {
-    pub(crate) static CONTEXT: RuntimeContext = RuntimeContext::new();
+    pub(crate) static CONTEXT: RuntimeContext = const { RuntimeContext::new() };
 }
 
 /// The Runtime Executor
@@ -49,8 +49,8 @@ pub struct Runtime {
 /// that processes each received connection.
 ///
 /// ```no_run
-/// tokio_uring::start(async {
-///     let handle = tokio_uring::spawn(async {
+/// tokio_uring_ooo::start(async {
+///     let handle = tokio_uring_ooo::spawn(async {
 ///         println!("hello from a background task");
 ///     });
 ///
@@ -177,13 +177,13 @@ mod test {
     #[test]
     fn block_on() {
         let rt = Runtime::new(&builder()).unwrap();
-        rt.block_on(async move { () });
+        rt.block_on(async move {});
     }
 
     #[test]
     fn block_on_twice() {
         let rt = Runtime::new(&builder()).unwrap();
-        rt.block_on(async move { () });
-        rt.block_on(async move { () });
+        rt.block_on(async move {});
+        rt.block_on(async move {});
     }
 }

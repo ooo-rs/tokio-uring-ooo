@@ -55,7 +55,7 @@ tokio-uring = "0.1"
 
 ```rust
 fn main() {
-    let rt = tokio_uring::runtime::Runtime::new().unwrap();
+    let rt = tokio_uring_ooo::runtime::Runtime::new().unwrap();
     rt.block_on(async {
         // The rest of the application comes here.
     });
@@ -185,7 +185,7 @@ at compile time. The following example demonstrates reading and writing with a
 file resource.
 
 ```rust
-use tokio_uring::buf;
+use tokio_uring_ooo::buf;
 
 /// The result of an operation that includes a buffer. The buffer must
 /// be returned to the caller when the operation completes successfully
@@ -254,7 +254,7 @@ let my_pool = BufferPool::builder()
     .build();
 
 // Create the runtime
-let mut rt = tokio_uring::runtime::Runtime::new()?;
+let mut rt = tokio_uring_ooo::runtime::Runtime::new()?;
 
 // Provide the buffer pool to the kernel. This passes
 // ownership of the pool to the kernel.
@@ -525,8 +525,8 @@ within the runtime context at compile time. Attempting to use a tokio-uring
 resource from outside of the runtime will result in a panic.
 
 ```rust
-use tokio_uring::runtime::Runtime;
-use tokio_uring::net::TcpListener;
+use tokio_uring_ooo::runtime::Runtime;
+use tokio_uring_ooo::net::TcpListener;
 
 fn main() {
     // Binding a TcpListener does not require access to the runtime.

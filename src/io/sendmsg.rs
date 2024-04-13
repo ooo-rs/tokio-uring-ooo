@@ -23,7 +23,7 @@ impl<T: BoundedBuf, U: BoundedBuf> Op<SendMsg<T, U>> {
         socket_addr: Option<SocketAddr>,
         msg_control: Option<U>,
     ) -> io::Result<Self> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let mut msghdr: Box<libc::msghdr> = Box::new(unsafe { std::mem::zeroed() });
 

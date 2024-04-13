@@ -25,10 +25,10 @@ use std::{
 /// Bind and connect a pair of sockets and send a packet:
 ///
 /// ```
-/// use tokio_uring::net::UdpSocket;
+/// use tokio_uring_ooo::net::UdpSocket;
 /// use std::net::SocketAddr;
 /// fn main() -> std::io::Result<()> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         let first_addr: SocketAddr = "127.0.0.1:2401".parse().unwrap();
 ///         let second_addr: SocketAddr = "127.0.0.1:8080".parse().unwrap();
 ///
@@ -69,10 +69,10 @@ use std::{
 /// Send and receive packets without connecting:
 ///
 /// ```
-/// use tokio_uring::net::UdpSocket;
+/// use tokio_uring_ooo::net::UdpSocket;
 /// use std::net::SocketAddr;
 /// fn main() -> std::io::Result<()> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         let first_addr: SocketAddr = "127.0.0.1:2401".parse().unwrap();
 ///         let second_addr: SocketAddr = "127.0.0.1:8080".parse().unwrap();
 ///
@@ -120,9 +120,9 @@ impl UdpSocket {
     ///
     /// ```
     /// use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4};
-    /// use tokio_uring::net::UdpSocket;
+    /// use tokio_uring_ooo::net::UdpSocket;
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let socket = UdpSocket::bind("127.0.0.1:8080".parse().unwrap()).await.unwrap();
     ///     let addr = socket.local_addr().expect("Couldn't get local address");
     ///     assert_eq!(addr, SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080)));
@@ -155,10 +155,10 @@ impl UdpSocket {
     /// ```
     /// use socket2::{Protocol, Socket, Type};
     /// use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4};
-    /// use tokio_uring::net::UdpSocket;
+    /// use tokio_uring_ooo::net::UdpSocket;
     ///
     /// fn main() -> std::io::Result<()> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let std_addr: SocketAddr = "127.0.0.1:2401".parse().unwrap();
     ///         let second_addr: SocketAddr = "127.0.0.1:8080".parse().unwrap();
     ///         let sock = Socket::new(socket2::Domain::IPV4, Type::DGRAM, Some(Protocol::UDP))?;

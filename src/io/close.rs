@@ -10,7 +10,7 @@ pub(crate) struct Close {
 
 impl Op<Close> {
     pub(crate) fn close(fd: RawFd) -> io::Result<Op<Close>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         CONTEXT.with(|x| {
             x.handle()

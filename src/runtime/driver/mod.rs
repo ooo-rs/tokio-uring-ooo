@@ -1,7 +1,7 @@
 use crate::buf::fixed::FixedBuffers;
 use crate::runtime::driver::op::{Completable, Lifecycle, MultiCQEFuture, Op, Updateable};
-use io_uring::opcode::AsyncCancel;
-use io_uring::{cqueue, squeue, IoUring};
+use io_uring_ooo::opcode::AsyncCancel;
+use io_uring_ooo::{cqueue, squeue, IoUring};
 use slab::Slab;
 use std::cell::RefCell;
 use std::os::unix::io::{AsRawFd, RawFd};
@@ -393,7 +393,7 @@ impl Drop for Driver {
 
                 Lifecycle::CompletionList(indices) => {
                     let mut list = indices.clone().into_list(&mut self.ops.completions);
-                    if !io_uring::cqueue::more(list.peek_end().unwrap().flags) {
+                    if !io_uring_ooo::cqueue::more(list.peek_end().unwrap().flags) {
                         // This op is complete. Replace with a null Completed entry
                         // safety: zeroed memory is entirely valid with this underlying
                         // representation

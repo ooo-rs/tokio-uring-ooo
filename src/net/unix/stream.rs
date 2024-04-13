@@ -19,11 +19,11 @@ use std::{
 /// # Examples
 ///
 /// ```no_run
-/// use tokio_uring::net::UnixStream;
+/// use tokio_uring_ooo::net::UnixStream;
 /// use std::net::ToSocketAddrs;
 ///
 /// fn main() -> std::io::Result<()> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         // Connect to a peer
 ///         let mut stream = UnixStream::connect("/tmp/tokio-uring-unix-test.sock").await?;
 ///

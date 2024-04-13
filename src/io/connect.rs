@@ -15,7 +15,7 @@ pub(crate) struct Connect {
 impl Op<Connect> {
     /// Submit a request to connect.
     pub(crate) fn connect(fd: &SharedFd, socket_addr: SockAddr) -> io::Result<Op<Connect>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         CONTEXT.with(|x| {
             x.handle().expect("Not in a runtime context").submit_op(

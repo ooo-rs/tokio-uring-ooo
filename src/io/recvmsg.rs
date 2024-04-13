@@ -19,7 +19,7 @@ pub(crate) struct RecvMsg<T> {
 
 impl<T: BoundedBufMut> Op<RecvMsg<T>> {
     pub(crate) fn recvmsg(fd: &SharedFd, mut bufs: Vec<T>) -> io::Result<Op<RecvMsg<T>>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let mut io_slices = Vec::with_capacity(bufs.len());
         for buf in &mut bufs {
@@ -28,7 +28,7 @@ impl<T: BoundedBufMut> Op<RecvMsg<T>> {
             }));
         }
 
-        let socket_addr = Box::new(unsafe { SockAddr::init(|_, _| Ok(()))?.1 });
+        let socket_addr = Box::new(unsafe { SockAddr::try_init(|_, _| Ok(()))?.1 });
 
         let mut msghdr: Box<libc::msghdr> = Box::new(unsafe { std::mem::zeroed() });
         msghdr.msg_iov = io_slices.as_mut_ptr().cast();

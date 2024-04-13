@@ -18,13 +18,13 @@ pub(crate) struct RecvFrom<T> {
 
 impl<T: BoundedBufMut> Op<RecvFrom<T>> {
     pub(crate) fn recv_from(fd: &SharedFd, mut buf: T) -> io::Result<Op<RecvFrom<T>>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let mut io_slices = vec![IoSliceMut::new(unsafe {
             std::slice::from_raw_parts_mut(buf.stable_mut_ptr(), buf.bytes_total())
         })];
 
-        let socket_addr = Box::new(unsafe { SockAddr::init(|_, _| Ok(()))?.1 });
+        let socket_addr = Box::new(unsafe { SockAddr::try_init(|_, _| Ok(()))?.1 });
 
         let mut msghdr: Box<libc::msghdr> = Box::new(unsafe { std::mem::zeroed() });
         msghdr.msg_iov = io_slices.as_mut_ptr().cast();

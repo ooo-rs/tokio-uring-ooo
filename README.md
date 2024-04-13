@@ -24,10 +24,10 @@ tokio-uring = { version = "0.4.0" }
 ```
 In your main.rs:
 ```rust
-use tokio_uring::fs::File;
+use tokio_uring_ooo::fs::File;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         // Open a file
         let file = File::open("hello.txt").await?;
 

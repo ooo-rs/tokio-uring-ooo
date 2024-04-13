@@ -1,5 +1,5 @@
 use crate::{buf::BoundedBuf, io::SharedFd, BufResult, OneshotOutputTransform, UnsubmittedOneshot};
-use io_uring::cqueue::Entry;
+use io_uring_ooo::cqueue::Entry;
 use std::io;
 use std::marker::PhantomData;
 
@@ -37,7 +37,7 @@ impl<T> OneshotOutputTransform for WriteTransform<T> {
 
 impl<T: BoundedBuf> UnsubmittedWrite<T> {
     pub(crate) fn write_at(fd: &SharedFd, buf: T, offset: u64) -> Self {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         // Get raw buffer info
         let ptr = buf.stable_ptr();

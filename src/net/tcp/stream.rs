@@ -19,11 +19,11 @@ use crate::{
 /// # Examples
 ///
 /// ```no_run
-/// use tokio_uring::net::TcpStream;
+/// use tokio_uring_ooo::net::TcpStream;
 /// use std::net::ToSocketAddrs;
 ///
 /// fn main() -> std::io::Result<()> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         // Connect to a peer
 ///         let mut stream = TcpStream::connect("127.0.0.1:8080".parse().unwrap()).await?;
 ///
@@ -121,19 +121,19 @@ impl TcpStream {
     ///
     /// ```no_run
     /// use std::net::SocketAddr;
-    /// use tokio_uring::net::TcpListener;
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::net::TcpListener;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let addr: SocketAddr = "127.0.0.1:0".parse().unwrap();
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let listener = TcpListener::bind(addr).unwrap();
     ///
     ///     println!("Listening on {}", listener.local_addr().unwrap());
     ///
     ///     loop {
     ///         let (stream, _) = listener.accept().await.unwrap();
-    ///         tokio_uring::spawn(async move {
+    ///         tokio_uring_ooo::spawn(async move {
     ///             let mut n = 0;
     ///             let mut buf = vec![0u8; 4096];
     ///             loop {

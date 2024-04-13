@@ -54,7 +54,7 @@ impl<T: IoBufMut> FixedBufRegistry<T> {
     /// [`iter::repeat`]: std::iter::repeat
     ///
     /// ```should_panic
-    /// use tokio_uring::buf::fixed::FixedBufRegistry;
+    /// use tokio_uring_ooo::buf::fixed::FixedBufRegistry;
     /// use std::iter;
     ///
     /// # #[allow(non_snake_case)]
@@ -67,7 +67,7 @@ impl<T: IoBufMut> FixedBufRegistry<T> {
     ///     iter::repeat(Vec::with_capacity(BUF_SIZE)).take(NUM_BUFFERS)
     /// );
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     registry.register()?;
     ///     // ...
     ///     Ok(())
@@ -78,7 +78,7 @@ impl<T: IoBufMut> FixedBufRegistry<T> {
     /// Instead, create the vectors with requested capacity directly:
     ///
     /// ```
-    /// use tokio_uring::buf::fixed::FixedBufRegistry;
+    /// use tokio_uring_ooo::buf::fixed::FixedBufRegistry;
     /// use std::iter;
     ///
     /// # #[allow(non_snake_case)]
@@ -91,7 +91,7 @@ impl<T: IoBufMut> FixedBufRegistry<T> {
     ///     iter::repeat_with(|| Vec::with_capacity(BUF_SIZE)).take(NUM_BUFFERS)
     /// );
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     registry.register()?;
     ///     // ...
     ///     Ok(())

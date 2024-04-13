@@ -3,7 +3,7 @@
 
 use std::{env, iter, net::SocketAddr};
 
-use tokio_uring::{
+use tokio_uring_ooo::{
     buf::{fixed::FixedBufRegistry, BoundedBuf, IoBufMut},
     net::{TcpListener, TcpStream},
 }; // BoundedBuf for slice method
@@ -21,7 +21,7 @@ fn main() {
     };
     let socket_addr: SocketAddr = socket_addr.parse().unwrap();
 
-    tokio_uring::start(accept_loop(socket_addr));
+    tokio_uring_ooo::start(accept_loop(socket_addr));
 }
 
 // Bind to address and accept connections, spawning an echo handler for each connection.
@@ -43,7 +43,7 @@ async fn accept_loop(listen_addr: SocketAddr) {
     loop {
         let (stream, peer) = listener.accept().await.unwrap();
 
-        tokio_uring::spawn(echo_handler(stream, peer, registry.clone()));
+        tokio_uring_ooo::spawn(echo_handler(stream, peer, registry.clone()));
     }
 }
 

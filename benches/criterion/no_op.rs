@@ -25,21 +25,21 @@ impl Default for Options {
 }
 
 fn run_no_ops(opts: &Options, count: u64) -> Duration {
-    let mut ring_opts = tokio_uring::uring_builder();
+    let mut ring_opts = tokio_uring_ooo::uring_builder();
     ring_opts.setup_cqsize(opts.cq_size as _);
 
     let mut m = Duration::ZERO;
 
     // Run the required number of iterations
     for _ in 0..count {
-        m += tokio_uring::builder()
+        m += tokio_uring_ooo::builder()
             .entries(opts.sq_size as _)
             .uring_builder(&ring_opts)
             .start(async move {
                 let mut js = JoinSet::new();
 
                 for _ in 0..opts.iterations {
-                    js.spawn_local(tokio_uring::no_op());
+                    js.spawn_local(tokio_uring_ooo::no_op());
                 }
 
                 let start = Instant::now();

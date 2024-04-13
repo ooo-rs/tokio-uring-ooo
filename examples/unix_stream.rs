@@ -1,6 +1,6 @@
 use std::env;
 
-use tokio_uring::net::UnixStream;
+use tokio_uring_ooo::net::UnixStream;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -11,7 +11,7 @@ fn main() {
 
     let socket_addr: &String = &args[1];
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let stream = UnixStream::connect(socket_addr).await.unwrap();
         let buf = vec![1u8; 128];
 

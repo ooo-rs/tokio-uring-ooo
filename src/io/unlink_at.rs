@@ -22,7 +22,7 @@ impl Op<Unlink> {
 
     /// Submit a request to unlink a specified path with provided flags.
     pub(crate) fn unlink(path: &Path, flags: i32) -> io::Result<Op<Unlink>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let path = super::util::cstr(path)?;
 

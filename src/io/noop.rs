@@ -9,7 +9,7 @@ pub struct NoOp {}
 
 impl Op<NoOp> {
     pub fn no_op() -> io::Result<Op<NoOp>> {
-        use io_uring::opcode;
+        use io_uring_ooo::opcode;
 
         CONTEXT.with(|x| {
             x.handle()
@@ -29,12 +29,12 @@ impl Completable for NoOp {
 
 #[cfg(test)]
 mod test {
-    use crate as tokio_uring;
+    use crate as tokio_uring_ooo;
 
     #[test]
-    fn perform_no_op() -> () {
-        tokio_uring::start(async {
-            tokio_uring::no_op().await.unwrap();
+    fn perform_no_op() {
+        tokio_uring_ooo::start(async {
+            tokio_uring_ooo::no_op().await.unwrap();
         })
     }
 }

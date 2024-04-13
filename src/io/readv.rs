@@ -15,7 +15,7 @@ pub(crate) struct Readv<T> {
 
     /// Reference to the in-flight buffer.
     pub(crate) bufs: Vec<T>,
-    /// Parameter for `io_uring::op::readv`, referring `bufs`.
+    /// Parameter for `io_uring_ooo::op::readv`, referring `bufs`.
     iovs: Vec<iovec>,
 }
 
@@ -25,9 +25,9 @@ impl<T: BoundedBufMut> Op<Readv<T>> {
         mut bufs: Vec<T>,
         offset: u64,
     ) -> io::Result<Op<Readv<T>>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
-        // Build `iovec` objects referring the provided `bufs` for `io_uring::opcode::Readv`.
+        // Build `iovec` objects referring the provided `bufs` for `io_uring_ooo::opcode::Readv`.
         let iovs: Vec<iovec> = bufs
             .iter_mut()
             .map(|b| iovec {

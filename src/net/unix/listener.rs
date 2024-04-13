@@ -10,16 +10,16 @@ use std::{io, path::Path};
 /// # Examples
 ///
 /// ```
-/// use tokio_uring::net::UnixListener;
-/// use tokio_uring::net::UnixStream;
+/// use tokio_uring_ooo::net::UnixListener;
+/// use tokio_uring_ooo::net::UnixStream;
 ///
 /// let sock_file = "/tmp/tokio-uring-unix-test.sock";
 /// let listener = UnixListener::bind(&sock_file).unwrap();
 ///
-/// tokio_uring::start(async move {
+/// tokio_uring_ooo::start(async move {
 ///     let (tx_ch, rx_ch) = tokio::sync::oneshot::channel();
 ///
-///     tokio_uring::spawn(async move {
+///     tokio_uring_ooo::spawn(async move {
 ///         let rx = listener.accept().await.unwrap();
 ///         if let Err(_) = tx_ch.send(rx) {
 ///             panic!("The receiver dropped");
@@ -57,7 +57,7 @@ impl UnixListener {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::net::UnixListener;
+    /// use tokio_uring_ooo::net::UnixListener;
     /// use std::path::Path;
     ///
     /// let sock_file = "/tmp/tokio-uring-unix-test.sock";

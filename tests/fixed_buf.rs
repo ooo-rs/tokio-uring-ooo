@@ -1,7 +1,7 @@
 use tokio_test::assert_err;
-use tokio_uring::buf::fixed::{FixedBufPool, FixedBufRegistry};
-use tokio_uring::buf::{BoundedBuf, BoundedBufMut};
-use tokio_uring::fs::File;
+use tokio_uring_ooo::buf::fixed::{FixedBufPool, FixedBufRegistry};
+use tokio_uring_ooo::buf::{BoundedBuf, BoundedBufMut};
+use tokio_uring_ooo::fs::File;
 
 use std::fs::File as StdFile;
 use std::io::prelude::*;
@@ -13,7 +13,7 @@ const HELLO: &[u8] = b"hello world...";
 
 #[test]
 fn fixed_buf_turnaround() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -61,7 +61,7 @@ fn fixed_buf_turnaround() {
 
 #[test]
 fn unregister_invalidates_checked_out_buffers() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -94,7 +94,7 @@ fn unregister_invalidates_checked_out_buffers() {
 
 #[test]
 fn slicing() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -141,7 +141,7 @@ fn slicing() {
 
 #[test]
 fn pool_next_as_concurrency_limit() {
-    tokio_uring::start(async move {
+    tokio_uring_ooo::start(async move {
         const BUF_SIZE: usize = 80;
 
         let mut tempfile = tempfile();
@@ -163,7 +163,7 @@ fn pool_next_as_concurrency_limit() {
             );
             let cloned_file = file.try_clone().unwrap();
 
-            let handle = tokio_uring::spawn(async move {
+            let handle = tokio_uring_ooo::spawn(async move {
                 let file = File::from_std(cloned_file);
                 let data = [b'0' + i as u8; BUF_SIZE];
                 buf.put_slice(&data);

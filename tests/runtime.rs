@@ -2,7 +2,7 @@ use tokio::net::{TcpListener, TcpStream};
 
 #[test]
 fn use_tokio_types_from_runtime() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let listener = TcpListener::bind("0.0.0.0:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
 
@@ -23,10 +23,10 @@ fn spawn_a_task() {
     use std::cell::RefCell;
     use std::rc::Rc;
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let cell = Rc::new(RefCell::new(1));
         let c = cell.clone();
-        let handle = tokio_uring::spawn(async move {
+        let handle = tokio_uring_ooo::spawn(async move {
             *c.borrow_mut() = 2;
         });
 

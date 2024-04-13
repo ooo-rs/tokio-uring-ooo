@@ -1,7 +1,7 @@
 use std::ffi::CString;
 use std::{ffi::CStr, io};
 
-use io_uring::{opcode, types};
+use io_uring_ooo::{opcode, types};
 
 use crate::runtime::{
     driver::op::{Completable, CqeResult, Op},

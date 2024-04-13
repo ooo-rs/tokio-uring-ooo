@@ -9,10 +9,10 @@
 //! runtime internally manages the main Tokio runtime and a `io-uring` driver.
 //!
 //! ```no_run
-//! use tokio_uring::fs::File;
+//! use tokio_uring_ooo::fs::File;
 //!
 //! fn main() -> Result<(), Box<dyn std::error::Error>> {
-//!     tokio_uring::start(async {
+//!     tokio_uring_ooo::start(async {
 //!         // Open a file
 //!         let file = File::open("hello.txt").await?;
 //!
@@ -31,7 +31,7 @@
 //! }
 //! ```
 //!
-//! Under the hood, `tokio_uring::start` starts a [`current-thread`] Runtime.
+//! Under the hood, `tokio_uring_ooo::start` starts a [`current-thread`] Runtime.
 //! For concurrency, spawn multiple threads, each with a `tokio-uring` runtime.
 //! The `tokio-uring` resource types are optimized for single-threaded usage and
 //! most are `!Sync`.
@@ -104,10 +104,10 @@ use std::future::Future;
 /// Basic usage
 ///
 /// ```no_run
-/// use tokio_uring::fs::File;
+/// use tokio_uring_ooo::fs::File;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         // Open a file
 ///         let file = File::open("hello.txt").await?;
 ///
@@ -133,7 +133,7 @@ use std::future::Future;
 /// use tokio::net::TcpListener;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         let listener = TcpListener::bind("127.0.0.1:8080").await?;
 ///
 ///         loop {
@@ -148,14 +148,14 @@ pub fn start<F: Future>(future: F) -> F::Output {
     rt.block_on(future)
 }
 
-/// Creates and returns an io_uring::Builder that can then be modified
+/// Creates and returns an io_uring_ooo::Builder that can then be modified
 /// through its implementation methods.
 ///
 /// This function is provided to avoid requiring the user of this crate from
 /// having to use the io_uring crate as well. Refer to Builder::start example
 /// for its intended usage.
-pub fn uring_builder() -> io_uring::Builder {
-    io_uring::IoUring::builder()
+pub fn uring_builder() -> io_uring_ooo::Builder {
+    io_uring_ooo::IoUring::builder()
 }
 
 /// Builder API that can create and start the `io_uring` runtime with non-default parameters,
@@ -163,7 +163,7 @@ pub fn uring_builder() -> io_uring::Builder {
 // #[derive(Clone, Default)]
 pub struct Builder {
     entries: u32,
-    urb: io_uring::Builder,
+    urb: io_uring_ooo::Builder,
 }
 
 /// Constructs a [`Builder`] with default settings.
@@ -175,7 +175,7 @@ pub struct Builder {
 pub fn builder() -> Builder {
     Builder {
         entries: 256,
-        urb: io_uring::IoUring::builder(),
+        urb: io_uring_ooo::IoUring::builder(),
     }
 }
 
@@ -191,11 +191,11 @@ impl Builder {
         self
     }
 
-    /// Replaces the default [`io_uring::Builder`], which controls the settings for the
+    /// Replaces the default [`io_uring_ooo::Builder`], which controls the settings for the
     /// inner `io_uring` API.
     ///
-    /// Refer to the [`io_uring::Builder`] documentation for all the supported methods.
-    pub fn uring_builder(&mut self, b: &io_uring::Builder) -> &mut Self {
+    /// Refer to the [`io_uring_ooo::Builder`] documentation for all the supported methods.
+    pub fn uring_builder(&mut self, b: &io_uring_ooo::Builder) -> &mut Self {
         self.urb = b.clone();
         self
     }
@@ -211,9 +211,9 @@ impl Builder {
     /// use tokio::net::TcpListener;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::builder()
+    ///     tokio_uring_ooo::builder()
     ///         .entries(64)
-    ///         .uring_builder(tokio_uring::uring_builder()
+    ///         .uring_builder(tokio_uring_ooo::uring_builder()
     ///             .setup_cqsize(1024)
     ///             )
     ///         .start(async {
@@ -243,10 +243,10 @@ impl Builder {
 /// # Examples
 ///
 /// ```no_run
-/// use tokio_uring::fs::File;
+/// use tokio_uring_ooo::fs::File;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         // Open a file
 ///         let file = File::open("hello.txt").await?;
 ///
@@ -274,9 +274,9 @@ pub type BufResult<T, B> = (std::io::Result<T>, B);
 ///
 /// ```no_run
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         // Place a NoOp on the ring, and await completion event
-///         tokio_uring::no_op().await?;
+///         tokio_uring_ooo::no_op().await?;
 ///         Ok(())
 ///     })
 /// }

@@ -40,7 +40,7 @@ pub trait BoundedBuf: Unpin + 'static {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let buf = b"hello world".to_vec();
     /// let slice = buf.slice(5..10);

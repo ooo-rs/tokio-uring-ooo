@@ -1,5 +1,5 @@
 use std::{env, net::SocketAddr};
-use tokio_uring::net::UdpSocket;
+use tokio_uring_ooo::net::UdpSocket;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -10,7 +10,7 @@ fn main() {
 
     let socket_addr: SocketAddr = args[1].parse().unwrap();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let socket = UdpSocket::bind(socket_addr).await.unwrap();
 
         let buf = vec![0u8; 128];

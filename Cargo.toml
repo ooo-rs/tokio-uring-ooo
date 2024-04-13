@@ -1,12 +1,15 @@
 [package]
-name = "tokio-uring"
+name = "tokio-uring-ooo"
 version = "0.4.0"
-authors = ["Tokio Contributors <team@tokio.rs>"]
-edition = "2018"
+authors = [
+	"Tokio Contributors <team@tokio.rs>",
+	"Ahmed Mones <oneofone@gmail.com>",
+]
+edition = "2021"
 readme = "README.md"
 license = "MIT"
-documentation = "https://docs.rs/tokio-uring/0.4.0/tokio-uring"
-repository = "https://github.com/tokio-rs/tokio-uring"
+documentation = "https://docs.rs/tokio-uring-ooo"
+repository = "https://github.com/ooo-rs/tokio-uring"
 homepage = "https://tokio.rs"
 description = """
 io-uring support for the Tokio asynchronous runtime.
@@ -17,22 +20,22 @@ keywords = ["async", "fs", "io-uring"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tokio = { version = "1.2", features = ["net", "rt", "sync"] }
+tokio = { version = "1", features = ["net", "rt", "sync"] }
 slab = "0.4.2"
 libc = "0.2.80"
-io-uring = "0.6.0"
-socket2 = { version = "0.4.4", features = ["all"] }
-bytes = { version = "1.0", optional = true }
-futures-util = { version = "0.3.26", default-features = false, features = ["std"] }
+io-uring-ooo = { version = "0.6", path = "../io-uring-ooo" }
+socket2 = { version = "0.5", features = ["all"] }
+bytes = { version = "1.6", optional = true }
+futures-util = { version = "0.3", default-features = false, features = ["std"] }
 
 [dev-dependencies]
 tempfile = "3.2.0"
 tokio-test = "0.4.2"
 iai = "0.1.1"
-criterion = "0.4.0"
+criterion = "0.5"
 # we use joinset in our tests
-tokio = "1.21.2"
-nix = "0.26.1"
+tokio = "1"
+nix = "0.28"
 
 [package.metadata.docs.rs]
 all-features = true

@@ -8,9 +8,9 @@ pub const RESPONSE: &'static [u8] =
 pub const ADDRESS: &'static str = "127.0.0.1:8080";
 
 fn main() -> io::Result<()> {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tasks = Vec::with_capacity(16);
-        let listener = Rc::new(tokio_uring::net::TcpListener::bind(
+        let listener = Rc::new(tokio_uring_ooo::net::TcpListener::bind(
             ADDRESS.parse().unwrap(),
         )?);
 
@@ -20,7 +20,7 @@ fn main() -> io::Result<()> {
                 loop {
                     let (stream, _) = listener.accept().await?;
 
-                    tokio_uring::spawn(async move {
+                    tokio_uring_ooo::spawn(async move {
                         let (result, _) = stream.write(RESPONSE).submit().await;
 
                         if let Err(err) = result {

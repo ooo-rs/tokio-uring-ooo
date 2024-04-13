@@ -16,7 +16,7 @@ use std::ops;
 /// Creating a slice
 ///
 /// ```
-/// use tokio_uring::buf::BoundedBuf;
+/// use tokio_uring_ooo::buf::BoundedBuf;
 ///
 /// let buf = b"hello world".to_vec();
 /// let slice = buf.slice(..5);
@@ -39,7 +39,7 @@ impl<T> Slice<T> {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let buf = b"hello world".to_vec();
     /// let slice = buf.slice(1..5);
@@ -55,7 +55,7 @@ impl<T> Slice<T> {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let buf = b"hello world".to_vec();
     /// let slice = buf.slice(1..5);
@@ -73,7 +73,7 @@ impl<T> Slice<T> {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let buf = b"hello world".to_vec();
     /// let slice = buf.slice(..5);
@@ -92,7 +92,7 @@ impl<T> Slice<T> {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let buf = b"hello world".to_vec();
     /// let mut slice = buf.slice(..5);
@@ -111,7 +111,7 @@ impl<T> Slice<T> {
     /// # Examples
     ///
     /// ```
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
     /// let buf = b"hello world".to_vec();
     /// let slice = buf.slice(..5);

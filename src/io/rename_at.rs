@@ -17,7 +17,7 @@ impl Op<RenameAt> {
     /// Submit a request to rename a specified path to a new name with
     /// the provided flags.
     pub(crate) fn rename_at(from: &Path, to: &Path, flags: u32) -> io::Result<Op<RenameAt>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let from = super::util::cstr(from)?;
         let to = super::util::cstr(to)?;

@@ -126,7 +126,7 @@ impl<T: BoundedBuf> Op<WritevAll<T>> {
         iovs_len: u32,
         offset: u64,
     ) -> io::Result<Op<WritevAll<T>>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         CONTEXT.with(|x| {
             x.handle().expect("Not in a runtime context").submit_op(

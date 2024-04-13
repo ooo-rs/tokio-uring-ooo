@@ -3,13 +3,11 @@ use std::{
     os::unix::io::{AsRawFd, FromRawFd, RawFd},
 };
 
-use libc;
-
 use tempfile::NamedTempFile;
 
-use tokio_uring::buf::fixed::FixedBufRegistry;
-use tokio_uring::buf::{BoundedBuf, BoundedBufMut};
-use tokio_uring::fs::File;
+use tokio_uring_ooo::buf::fixed::FixedBufRegistry;
+use tokio_uring_ooo::buf::{BoundedBuf, BoundedBufMut};
+use tokio_uring_ooo::fs::File;
 
 #[path = "../src/future.rs"]
 #[allow(warnings)]
@@ -28,7 +26,7 @@ async fn read_hello(file: &File) {
 
 #[test]
 fn basic_read() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -39,7 +37,7 @@ fn basic_read() {
 
 #[test]
 fn basic_read_exact() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let data = HELLO.repeat(1000);
         let buf = Vec::with_capacity(data.len());
 
@@ -55,7 +53,7 @@ fn basic_read_exact() {
 
 #[test]
 fn basic_write() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let tempfile = tempfile();
 
         let file = File::create(tempfile.path()).await.unwrap();
@@ -69,7 +67,7 @@ fn basic_write() {
 
 #[test]
 fn vectored_read() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -85,7 +83,7 @@ fn vectored_read() {
 
 #[test]
 fn vectored_write() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let tempfile = tempfile();
 
         let file = File::create(tempfile.path()).await.unwrap();
@@ -102,7 +100,7 @@ fn vectored_write() {
 
 #[test]
 fn basic_write_all() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let data = HELLO.repeat(1000);
 
         let tempfile = tempfile();
@@ -118,7 +116,7 @@ fn basic_write_all() {
 
 #[test]
 fn cancel_read() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -136,7 +134,7 @@ fn explicit_close() {
     let mut tempfile = tempfile();
     tempfile.write_all(HELLO).unwrap();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let file = File::open(tempfile.path()).await.unwrap();
         let fd = file.as_raw_fd();
 
@@ -148,9 +146,9 @@ fn explicit_close() {
 
 #[test]
 fn drop_open() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let tempfile = tempfile();
-        let _ = File::create(tempfile.path());
+        let _ = File::create(tempfile.path()).await;
 
         // Do something else
         let file = File::create(tempfile.path()).await.unwrap();
@@ -164,7 +162,7 @@ fn drop_open() {
 
 #[test]
 fn drop_off_runtime() {
-    let file = tokio_uring::start(async {
+    let file = tokio_uring_ooo::start(async {
         let tempfile = tempfile();
         File::open(tempfile.path()).await.unwrap()
     });
@@ -179,7 +177,7 @@ fn drop_off_runtime() {
 fn sync_doesnt_kill_anything() {
     let tempfile = tempfile();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let file = File::create(tempfile.path()).await.unwrap();
         file.sync_all().await.unwrap();
         file.sync_data().await.unwrap();
@@ -192,7 +190,7 @@ fn sync_doesnt_kill_anything() {
 #[test]
 fn rename() {
     use std::ffi::OsStr;
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -209,7 +207,9 @@ fn rename() {
 
         let new_path = old_path.with_file_name(new_file_name);
 
-        tokio_uring::fs::rename(&old_path, &new_path).await.unwrap();
+        tokio_uring_ooo::fs::rename(&old_path, &new_path)
+            .await
+            .unwrap();
 
         let new_file = File::open(&new_path).await.unwrap();
         read_hello(&new_file).await;
@@ -225,7 +225,7 @@ fn rename() {
 
 #[test]
 fn read_fixed() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let mut tempfile = tempfile();
         tempfile.write_all(HELLO).unwrap();
 
@@ -254,7 +254,7 @@ fn read_fixed() {
 
 #[test]
 fn write_fixed() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let tempfile = tempfile();
 
         let file = File::create(tempfile.path()).await.unwrap();
@@ -285,7 +285,7 @@ fn write_fixed() {
 
 #[test]
 fn basic_fallocate() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let tempfile = tempfile();
 
         let file = File::create(tempfile.path()).await.unwrap();

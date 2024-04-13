@@ -1,6 +1,6 @@
 use std::io;
 use std::path::Path;
-use tokio_uring::fs;
+use tokio_uring_ooo::fs;
 
 fn tests() -> std::slice::Iter<'static, Expected<'static>> {
     [
@@ -171,12 +171,12 @@ async fn main1() -> io::Result<()> {
 }
 
 async fn statx<P: AsRef<Path>>(path: P) -> io::Result<()> {
-    let _statx = tokio_uring::fs::statx(path).await?;
+    let _statx = tokio_uring_ooo::fs::statx(path).await?;
     Ok(())
 }
 
 async fn statx_builder<P: AsRef<Path>>(path: P) -> io::Result<()> {
-    let _statx = tokio_uring::fs::StatxBuilder::new()
+    let _statx = tokio_uring_ooo::fs::StatxBuilder::new()
         .pathname(path)?
         .statx()
         .await?;
@@ -187,7 +187,7 @@ async fn statx_builder2<P: AsRef<Path>>(dir_path: P, rel_path: P) -> io::Result<
     // This shows the power of combining an open file, presumably a directory, and the relative
     // path to have the statx operation return the meta data for the child of the opened directory
     // descriptor.
-    let f = tokio_uring::fs::File::open(dir_path).await?;
+    let f = tokio_uring_ooo::fs::File::open(dir_path).await?;
 
     // Fetch file metadata
     let res = f.statx_builder().pathname(rel_path)?.statx().await;
@@ -199,7 +199,7 @@ async fn statx_builder2<P: AsRef<Path>>(dir_path: P, rel_path: P) -> io::Result<
 }
 
 async fn matches_mode<P: AsRef<Path>>(path: P, want_mode: u16) -> io::Result<()> {
-    let statx = tokio_uring::fs::StatxBuilder::new()
+    let statx = tokio_uring_ooo::fs::StatxBuilder::new()
         .mask(libc::STATX_MODE)
         .pathname(path)?
         .statx()
@@ -216,7 +216,7 @@ async fn matches_mode<P: AsRef<Path>>(path: P, want_mode: u16) -> io::Result<()>
 }
 
 async fn touch_file<P: AsRef<Path>>(path: P) -> io::Result<()> {
-    let file = tokio_uring::fs::OpenOptions::new()
+    let file = tokio_uring_ooo::fs::OpenOptions::new()
         .append(true)
         .create(true)
         .open(path)
@@ -226,7 +226,7 @@ async fn touch_file<P: AsRef<Path>>(path: P) -> io::Result<()> {
 }
 
 async fn is_regfile<P: AsRef<Path>>(path: P) -> io::Result<()> {
-    let (_is_dir, is_regfile) = tokio_uring::fs::is_dir_regfile(path).await;
+    let (_is_dir, is_regfile) = tokio_uring_ooo::fs::is_dir_regfile(path).await;
 
     if is_regfile {
         Ok(())
@@ -239,7 +239,7 @@ async fn is_regfile<P: AsRef<Path>>(path: P) -> io::Result<()> {
 }
 
 async fn is_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
-    let (is_dir, _is_regfile) = tokio_uring::fs::is_dir_regfile(path).await;
+    let (is_dir, _is_regfile) = tokio_uring_ooo::fs::is_dir_regfile(path).await;
 
     if is_dir {
         Ok(())
@@ -252,7 +252,7 @@ async fn is_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
 }
 
 fn main() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         if let Err(e) = main1().await {
             println!("error: {}", e);
         }

@@ -12,7 +12,7 @@ pub(crate) struct Accept {
 
 impl Op<Accept> {
     pub(crate) fn accept(fd: &SharedFd) -> io::Result<Op<Accept>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let socketaddr = Box::new((
             unsafe { std::mem::zeroed() },
@@ -46,7 +46,7 @@ impl Completable for Accept {
         let fd = SharedFd::new(fd as i32);
         let socket = Socket { fd };
         let (_, addr) = unsafe {
-            socket2::SockAddr::init(move |addr_storage, len| {
+            socket2::SockAddr::try_init(move |addr_storage, len| {
                 *addr_storage = self.socketaddr.0.to_owned();
                 *len = self.socketaddr.1;
                 Ok(())

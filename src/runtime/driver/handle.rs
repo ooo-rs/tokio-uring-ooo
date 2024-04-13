@@ -12,7 +12,7 @@
 //! The weak handle should be used by anything which is stored in the driver or does not need to
 //! keep the driver alive for it's duration.
 
-use io_uring::{cqueue, squeue};
+use io_uring_ooo::{cqueue, squeue};
 use std::cell::RefCell;
 use std::io;
 use std::ops::Deref;

@@ -1,6 +1,6 @@
 use std::io;
 
-use io_uring::{opcode, types};
+use io_uring_ooo::{opcode, types};
 
 use crate::{
     io::SharedFd,

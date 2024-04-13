@@ -31,10 +31,10 @@ use std::path::Path;
 /// Creates a new file and write data to it:
 ///
 /// ```no_run
-/// use tokio_uring::fs::File;
+/// use tokio_uring_ooo::fs::File;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         // Open a file
 ///         let file = File::create("hello.txt").await?;
 ///
@@ -72,10 +72,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::open("foo.txt").await?;
     ///
     ///         // Close the file
@@ -98,10 +98,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::create("foo.txt").await?;
     ///
     ///         // Close the file
@@ -123,7 +123,7 @@ impl File {
         File { fd }
     }
 
-    /// Converts a [`std::fs::File`][std] to a [`tokio_uring::fs::File`][file].
+    /// Converts a [`std::fs::File`][std] to a [`tokio_uring_ooo::fs::File`][file].
     ///
     /// [std]: std::fs::File
     /// [file]: File
@@ -157,10 +157,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::open("foo.txt").await?;
     ///         let buffer = vec![0; 10];
     ///
@@ -208,10 +208,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::open("foo.txt").await?;
     ///         let buffers = vec![Vec::<u8>::with_capacity(10), Vec::<u8>::with_capacity(10)];
     ///
@@ -263,10 +263,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = File::create("foo.txt").await?;
     ///
     ///         // Writes some prefix of the byte string, not necessarily all of it.
@@ -371,10 +371,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::open("foo.txt").await?;
     ///         let buffer = Vec::with_capacity(10);
     ///
@@ -460,12 +460,12 @@ impl File {
     ///
     /// ```no_run
     ///# fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// use tokio_uring::fs::File;
-    /// use tokio_uring::buf::fixed::FixedBufRegistry;
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::fs::File;
+    /// use tokio_uring_ooo::buf::fixed::FixedBufRegistry;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     /// use std::iter;
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let registry = FixedBufRegistry::new(iter::repeat(vec![0; 10]).take(10));
     ///     registry.register()?;
     ///
@@ -519,10 +519,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = File::create("foo.txt").await?;
     ///
     ///         // Writes some prefix of the byte string, not necessarily all of it.
@@ -564,10 +564,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = File::create("foo.txt").await?;
     ///
     ///         // Writes some prefix of the byte string, not necessarily all of it.
@@ -652,11 +652,11 @@ impl File {
     ///
     /// ```no_run
     ///# fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// use tokio_uring::fs::File;
-    /// use tokio_uring::buf::fixed::FixedBufRegistry;
-    /// use tokio_uring::buf::BoundedBuf;
+    /// use tokio_uring_ooo::fs::File;
+    /// use tokio_uring_ooo::buf::fixed::FixedBufRegistry;
+    /// use tokio_uring_ooo::buf::BoundedBuf;
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let registry = FixedBufRegistry::new([b"some bytes".to_vec()]);
     ///     registry.register()?;
     ///
@@ -768,10 +768,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::create("foo.txt").await?;
     ///         let (res, buf) = f.write_at(&b"Hello, world!"[..], 0).submit().await;
     ///         let n = res?;
@@ -805,10 +805,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::create("foo.txt").await?;
     ///         let (res, buf) = f.write_at(&b"Hello, world!"[..], 0).submit().await;
     ///         let n = res?;
@@ -836,10 +836,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let f = File::create("foo.txt").await?;
     ///
     ///         // Allocate a 1024 byte file setting all the bytes to zero
@@ -869,10 +869,10 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         // Open the file
     ///         let f = File::open("foo.txt").await?;
     ///         // Close the file
@@ -920,10 +920,10 @@ impl fmt::Debug for File {
 /// # Examples
 ///
 /// ```no_run
-/// use tokio_uring::fs::remove_file;
+/// use tokio_uring_ooo::fs::remove_file;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         remove_file("/some/file.txt").await?;
 ///         Ok::<(), std::io::Error>(())
 ///     })?;
@@ -949,10 +949,10 @@ pub async fn remove_file<P: AsRef<Path>>(path: P) -> io::Result<()> {
 /// # Example
 ///
 /// ```no_run
-/// use tokio_uring::fs::rename;
+/// use tokio_uring_ooo::fs::rename;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         rename("a.txt", "b.txt").await?; // Rename a.txt to b.txt
 ///         Ok::<(), std::io::Error>(())
 ///     })?;

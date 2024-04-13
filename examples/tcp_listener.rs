@@ -1,6 +1,6 @@
 use std::{env, net::SocketAddr};
 
-use tokio_uring::net::TcpListener;
+use tokio_uring_ooo::net::TcpListener;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -12,17 +12,17 @@ fn main() {
     };
     let socket_addr: SocketAddr = socket_addr.parse().unwrap();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let listener = TcpListener::bind(socket_addr).unwrap();
 
         println!("Listening on {}", listener.local_addr().unwrap());
 
         loop {
             let (stream, socket_addr) = listener.accept().await.unwrap();
-            tokio_uring::spawn(async move {
+            tokio_uring_ooo::spawn(async move {
                 // implement ping-pong loop
 
-                use tokio_uring::buf::BoundedBuf; // for slice()
+                use tokio_uring_ooo::buf::BoundedBuf; // for slice()
 
                 println!("{} connected", socket_addr);
                 let mut n = 0;

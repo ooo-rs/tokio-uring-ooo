@@ -3,13 +3,13 @@
 mod future;
 
 use tokio_test::assert_ok;
-use tokio_uring::fs;
+use tokio_uring_ooo::fs;
 
 use tempfile::tempdir;
 
 #[test]
 fn basic_create_dir() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let base_dir = tempdir().unwrap();
         let new_dir = base_dir.path().join("foo");
         let new_dir_2 = new_dir.clone();
@@ -22,9 +22,9 @@ fn basic_create_dir() {
 
 #[test]
 fn basic_remove_dir() {
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let temp_dir = tempfile::TempDir::new().unwrap();
-        tokio_uring::fs::remove_dir(temp_dir.path()).await.unwrap();
+        tokio_uring_ooo::fs::remove_dir(temp_dir.path()).await.unwrap();
         assert!(std::fs::metadata(temp_dir.path()).is_err());
     });
 }

@@ -3,7 +3,7 @@ use std::{
     {env, io},
 };
 
-use tokio_uring::fs::File;
+use tokio_uring_ooo::fs::File;
 
 fn main() {
     // The file to `cat` is passed as a CLI argument
@@ -19,7 +19,7 @@ fn main() {
     let out = io::stdout();
     let mut out = out.lock();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         // Open the file without blocking
         let file = File::open(path).await.unwrap();
         let mut buf = vec![0; 16 * 1_024];

@@ -6,6 +6,7 @@ use crate::{
     io::SharedFd,
     UnsubmittedOneshot,
 };
+use std::os::fd::{AsFd, BorrowedFd};
 use std::{
     io,
     net::SocketAddr,
@@ -283,5 +284,11 @@ impl Socket {
 impl AsRawFd for Socket {
     fn as_raw_fd(&self) -> RawFd {
         self.fd.raw_fd()
+    }
+}
+
+impl AsFd for Socket {
+    fn as_fd(&self) -> BorrowedFd<'_> {
+        unsafe { BorrowedFd::borrow_raw(self.as_raw_fd()) }
     }
 }

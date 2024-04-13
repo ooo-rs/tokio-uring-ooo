@@ -1,4 +1,4 @@
-use tokio_uring::buf::{BoundedBuf, BoundedBufMut, Slice};
+use tokio_uring_ooo::buf::{BoundedBuf, BoundedBufMut, Slice};
 
 use std::mem;
 use std::ops::RangeBounds;
@@ -144,7 +144,7 @@ macro_rules! test_slice {
 
 fn test_subslice_read_case<B, R>(slice: Slice<B>, expected: &[u8], range: R) -> B
 where
-    B: tokio_uring::buf::IoBuf,
+    B: tokio_uring_ooo::buf::IoBuf,
     R: RangeBounds<usize> + SliceIndex<[u8], Output = [u8]> + Clone,
 {
     use std::ops::{Bound, Index};

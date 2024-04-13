@@ -16,9 +16,9 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let f = File::create("foo.txt").await.unwrap();
     ///
     ///     // Fetch file metadata
@@ -54,9 +54,9 @@ impl File {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::File;
+    /// use tokio_uring_ooo::fs::File;
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let f = File::create("foo.txt").await.unwrap();
     ///
     ///     // Fetch file metadata
@@ -96,10 +96,10 @@ impl File {
 /// # Examples
 ///
 /// ```no_run
-/// tokio_uring::start(async {
+/// tokio_uring_ooo::start(async {
 ///
 ///     // Fetch file metadata
-///     let statx = tokio_uring::fs::statx("foo.txt").await.unwrap();
+///     let statx = tokio_uring_ooo::fs::statx("foo.txt").await.unwrap();
 /// })
 /// ```
 pub async fn statx<P: AsRef<Path>>(path: P) -> io::Result<libc::statx> {
@@ -139,11 +139,11 @@ impl StatxBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let want_mode: u16 = 0o775;
     ///
     ///     // Fetch file metadata
-    ///     let statx = tokio_uring::fs::StatxBuilder::new()
+    ///     let statx = tokio_uring_ooo::fs::StatxBuilder::new()
     ///         .mask(libc::STATX_MODE)
     ///         .pathname("foo.txt").unwrap()
     ///         .statx().await.unwrap();
@@ -174,9 +174,9 @@ impl StatxBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::{self, File};
+    /// use tokio_uring_ooo::fs::{self, File};
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let dir = fs::OpenOptions::new()
     ///         .open("/home/linux")
     ///         .await.unwrap();
@@ -203,9 +203,9 @@ impl StatxBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::{self, File};
+    /// use tokio_uring_ooo::fs::{self, File};
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let dir = fs::OpenOptions::new()
     ///         .open("/home/linux")
     ///         .await.unwrap();
@@ -232,9 +232,9 @@ impl StatxBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     // Fetch file metadata
-    ///     let statx = tokio_uring::fs::StatxBuilder::new()
+    ///     let statx = tokio_uring_ooo::fs::StatxBuilder::new()
     ///         .flags(libc::AT_NO_AUTOMOUNT)
     ///         .pathname("foo.txt").unwrap()
     ///         .statx().await.unwrap();
@@ -251,9 +251,9 @@ impl StatxBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     // Fetch file metadata
-    ///     let statx = tokio_uring::fs::StatxBuilder::new()
+    ///     let statx = tokio_uring_ooo::fs::StatxBuilder::new()
     ///         .mask(libc::STATX_BASIC_STATS)
     ///         .pathname("foo.txt").unwrap()
     ///         .statx().await.unwrap();
@@ -271,9 +271,9 @@ impl StatxBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::{self, File};
+    /// use tokio_uring_ooo::fs::{self, File};
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let dir = fs::OpenOptions::new()
     ///         .open("/home/linux")
     ///         .await.unwrap();

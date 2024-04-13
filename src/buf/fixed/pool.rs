@@ -56,8 +56,8 @@ use std::sync::Arc;
 /// # Examples
 ///
 /// ```
-/// use tokio_uring::buf::fixed::FixedBufPool;
-/// use tokio_uring::buf::IoBuf;
+/// use tokio_uring_ooo::buf::fixed::FixedBufPool;
+/// use tokio_uring_ooo::buf::IoBuf;
 /// use std::iter;
 /// use std::mem;
 ///
@@ -67,7 +67,7 @@ use std::sync::Arc;
 /// # let (memlock_limit, _) = getrlimit(Resource::RLIMIT_MEMLOCK)?;
 /// # let BUF_SIZE_LARGE = memlock_limit as usize / 8;
 /// # let BUF_SIZE_SMALL = memlock_limit as usize / 16;
-/// tokio_uring::start(async {
+/// tokio_uring_ooo::start(async {
 ///     let pool = FixedBufPool::new(
 ///          iter::once(Vec::with_capacity(BUF_SIZE_LARGE))
 ///              .chain(iter::repeat_with(|| Vec::with_capacity(BUF_SIZE_SMALL)).take(2))
@@ -118,7 +118,7 @@ impl<T: IoBufMut> FixedBufPool<T> {
     /// [`iter::repeat`]: std::iter::repeat
     ///
     /// ```should_panic
-    /// use tokio_uring::buf::fixed::FixedBufPool;
+    /// use tokio_uring_ooo::buf::fixed::FixedBufPool;
     /// use std::iter;
     ///
     /// # #[allow(non_snake_case)]
@@ -131,7 +131,7 @@ impl<T: IoBufMut> FixedBufPool<T> {
     ///     iter::repeat(Vec::with_capacity(BUF_SIZE)).take(NUM_BUFFERS)
     /// );
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     pool.register()?;
     ///     // ...
     ///     Ok(())
@@ -142,7 +142,7 @@ impl<T: IoBufMut> FixedBufPool<T> {
     /// Instead, create the vectors with requested capacity directly:
     ///
     /// ```
-    /// use tokio_uring::buf::fixed::FixedBufPool;
+    /// use tokio_uring_ooo::buf::fixed::FixedBufPool;
     /// use std::iter;
     ///
     /// # #[allow(non_snake_case)]
@@ -155,7 +155,7 @@ impl<T: IoBufMut> FixedBufPool<T> {
     ///     iter::repeat_with(|| Vec::with_capacity(BUF_SIZE)).take(NUM_BUFFERS)
     /// );
     ///
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     pool.register()?;
     ///     // ...
     ///     Ok(())

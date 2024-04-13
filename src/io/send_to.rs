@@ -24,7 +24,7 @@ impl<T: BoundedBuf> Op<SendTo<T>> {
         buf: T,
         socket_addr: Option<SocketAddr>,
     ) -> io::Result<Op<SendTo<T>>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let io_slices = vec![IoSlice::new(unsafe {
             std::slice::from_raw_parts(buf.stable_ptr(), buf.bytes_init())

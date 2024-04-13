@@ -14,15 +14,15 @@ use std::{
 /// # Examples
 ///
 /// ```
-/// use tokio_uring::net::TcpListener;
-/// use tokio_uring::net::TcpStream;
+/// use tokio_uring_ooo::net::TcpListener;
+/// use tokio_uring_ooo::net::TcpStream;
 ///
 /// let listener = TcpListener::bind("127.0.0.1:2345".parse().unwrap()).unwrap();
 ///
-/// tokio_uring::start(async move {
+/// tokio_uring_ooo::start(async move {
 ///     let (tx_ch, rx_ch) = tokio::sync::oneshot::channel();
 ///
-///     tokio_uring::spawn(async move {
+///     tokio_uring_ooo::spawn(async move {
 ///         let (rx, _) = listener.accept().await.unwrap();
 ///         if let Err(_) = tx_ch.send(rx) {
 ///             panic!("The receiver dropped");
@@ -71,7 +71,7 @@ impl TcpListener {
     /// # Example
     ///
     /// ```
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let address: std::net::SocketAddr = "[::0]:8443".parse().unwrap();
     ///     let socket = tokio::net::TcpSocket::new_v6().unwrap();
     ///     socket.set_reuseaddr(true).unwrap();
@@ -80,7 +80,7 @@ impl TcpListener {
     ///
     ///     let listener = socket.listen(1024).unwrap();
     ///
-    ///     let listener = tokio_uring::net::TcpListener::from_std(listener.into_std().unwrap());
+    ///     let listener = tokio_uring_ooo::net::TcpListener::from_std(listener.into_std().unwrap());
     /// })
     /// ```
     pub fn from_std(socket: std::net::TcpListener) -> Self {
@@ -101,7 +101,7 @@ impl TcpListener {
     ///
     /// ```
     /// use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4};
-    /// use tokio_uring::net::TcpListener;
+    /// use tokio_uring_ooo::net::TcpListener;
     ///
     /// let listener = TcpListener::bind("127.0.0.1:8080".parse().unwrap()).unwrap();
     ///

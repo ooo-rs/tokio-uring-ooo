@@ -12,7 +12,7 @@ pub(crate) struct Writev<T> {
 
     pub(crate) bufs: Vec<T>,
 
-    /// Parameter for `io_uring::op::readv`, referring `bufs`.
+    /// Parameter for `io_uring_ooo::op::readv`, referring `bufs`.
     iovs: Vec<iovec>,
 }
 
@@ -22,9 +22,9 @@ impl<T: BoundedBuf> Op<Writev<T>> {
         mut bufs: Vec<T>,
         offset: u64,
     ) -> io::Result<Op<Writev<T>>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
-        // Build `iovec` objects referring the provided `bufs` for `io_uring::opcode::Readv`.
+        // Build `iovec` objects referring the provided `bufs` for `io_uring_ooo::opcode::Readv`.
         let iovs: Vec<iovec> = bufs
             .iter_mut()
             .map(|b| iovec {

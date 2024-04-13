@@ -1,6 +1,6 @@
 use tempfile::NamedTempFile;
 
-use tokio_uring::{buf::IoBuf, fs::File};
+use tokio_uring_ooo::{buf::IoBuf, fs::File};
 
 #[path = "../src/future.rs"]
 #[allow(warnings)]
@@ -29,7 +29,7 @@ fn complete_ops_on_drop() {
         }
     }
 
-    unsafe impl tokio_uring::buf::IoBufMut for MyBuf {
+    unsafe impl tokio_uring_ooo::buf::IoBufMut for MyBuf {
         fn stable_mut_ptr(&mut self) -> *mut u8 {
             self.data.stable_mut_ptr()
         }
@@ -48,7 +48,7 @@ fn complete_ops_on_drop() {
     let mut file = std::fs::File::create(tempfile.path()).unwrap();
     std::io::Write::write_all(&mut file, &vec).unwrap();
 
-    let file = tokio_uring::start(async {
+    let file = tokio_uring_ooo::start(async {
         let file = File::create(tempfile.path()).await.unwrap();
         poll_once(async {
             file.read_at(
@@ -79,7 +79,7 @@ fn complete_ops_on_drop() {
 fn too_many_submissions() {
     let tempfile = tempfile();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let file = File::create(tempfile.path()).await.unwrap();
         for _ in 0..600 {
             poll_once(async {
@@ -110,14 +110,14 @@ fn completion_overflow() {
         process::exit(1);
     });
 
-    tokio_uring::builder()
+    tokio_uring_ooo::builder()
         .entries(squeue_entries)
-        .uring_builder(tokio_uring::uring_builder().setup_cqsize(cqueue_entries))
+        .uring_builder(tokio_uring_ooo::uring_builder().setup_cqsize(cqueue_entries))
         .start(async move {
             let mut js = JoinSet::new();
 
             for _ in 0..spawn_cnt {
-                js.spawn_local(tokio_uring::no_op());
+                js.spawn_local(tokio_uring_ooo::no_op());
             }
 
             while let Some(res) = js.join_next().await {

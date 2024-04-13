@@ -1,6 +1,6 @@
 use std::env;
 
-use tokio_uring::net::UnixListener;
+use tokio_uring_ooo::net::UnixListener;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -11,13 +11,13 @@ fn main() {
 
     let socket_addr: String = args[1].clone();
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         let listener = UnixListener::bind(&socket_addr).unwrap();
 
         loop {
             let stream = listener.accept().await.unwrap();
             let socket_addr = socket_addr.clone();
-            tokio_uring::spawn(async move {
+            tokio_uring_ooo::spawn(async move {
                 let buf = vec![1u8; 128];
 
                 let (result, buf) = stream.write(buf).submit().await;

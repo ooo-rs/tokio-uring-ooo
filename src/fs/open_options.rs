@@ -23,10 +23,10 @@ use std::path::Path;
 /// Opening a file to read:
 ///
 /// ```no_run
-/// use tokio_uring::fs::OpenOptions;
+/// use tokio_uring_ooo::fs::OpenOptions;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         let file = OpenOptions::new()
 ///             .read(true)
 ///             .open("foo.txt")
@@ -40,10 +40,10 @@ use std::path::Path;
 /// doesn't exist:
 ///
 /// ```no_run
-/// use tokio_uring::fs::OpenOptions;
+/// use tokio_uring_ooo::fs::OpenOptions;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         let file = OpenOptions::new()
 ///             .read(true)
 ///             .write(true)
@@ -74,10 +74,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .read(true)
     ///             .open("foo.txt")
@@ -108,10 +108,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .read(true)
     ///             .open("foo.txt")
@@ -136,10 +136,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .write(true)
     ///             .open("foo.txt")
@@ -172,10 +172,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .append(true)
     ///             .open("foo.txt")
@@ -199,10 +199,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .write(true)
     ///             .truncate(true)
@@ -225,10 +225,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .write(true)
     ///             .create(true)
@@ -264,10 +264,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .write(true)
     ///             .create_new(true)
@@ -314,10 +314,10 @@ impl OpenOptions {
     /// # Examples
     ///
     /// ```no_run
-    /// use tokio_uring::fs::OpenOptions;
+    /// use tokio_uring_ooo::fs::OpenOptions;
     ///
     /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-    ///     tokio_uring::start(async {
+    ///     tokio_uring_ooo::start(async {
     ///         let file = OpenOptions::new()
     ///             .read(true)
     ///             .open("foo.txt")

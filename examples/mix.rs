@@ -4,7 +4,7 @@
 
 use std::env;
 
-use tokio_uring::{fs::File, net::TcpListener};
+use tokio_uring_ooo::{fs::File, net::TcpListener};
 
 fn main() {
     // The file to serve over TCP is passed as a CLI argument
@@ -14,7 +14,7 @@ fn main() {
         panic!("no path specified");
     }
 
-    tokio_uring::start(async {
+    tokio_uring_ooo::start(async {
         // Start a TCP listener
         let listener = TcpListener::bind("0.0.0.0:8080".parse().unwrap()).unwrap();
 
@@ -24,7 +24,7 @@ fn main() {
             let path = args[1].clone();
 
             // Spawn a task to send the file back to the socket
-            tokio_uring::spawn(async move {
+            tokio_uring_ooo::spawn(async move {
                 // Open the file without blocking
                 let file = File::open(path).await.unwrap();
                 let mut buf = vec![0; 16 * 1_024];

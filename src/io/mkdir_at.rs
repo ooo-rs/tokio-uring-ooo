@@ -16,7 +16,7 @@ pub(crate) struct Mkdir {
 impl Op<Mkdir> {
     /// Submit a request to create a directory
     pub(crate) fn make_dir(path: &Path, mode: u32) -> io::Result<Op<Mkdir>> {
-        use io_uring::{opcode, types};
+        use io_uring_ooo::{opcode, types};
 
         let _path = cstr(path)?;
 

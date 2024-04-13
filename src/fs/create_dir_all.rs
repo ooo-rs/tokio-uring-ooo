@@ -7,8 +7,8 @@ use std::path::Path;
 /// # Examples
 ///
 /// ```no_run
-/// tokio_uring::start(async {
-///     tokio_uring::fs::create_dir_all("/some/dir").await.unwrap();
+/// tokio_uring_ooo::start(async {
+///     tokio_uring_ooo::fs::create_dir_all("/some/dir").await.unwrap();
 /// });
 /// ```
 pub async fn create_dir_all<P: AsRef<Path>>(path: P) -> io::Result<()> {
@@ -40,7 +40,7 @@ impl DirBuilder {
     /// # Examples
     ///
     /// ```
-    /// let builder = tokio_uring::fs::DirBuilder::new();
+    /// let builder = tokio_uring_ooo::fs::DirBuilder::new();
     /// ```
     #[must_use]
     pub fn new() -> DirBuilder {
@@ -59,7 +59,7 @@ impl DirBuilder {
     /// # Examples
     ///
     /// ```
-    /// let mut builder = tokio_uring::fs::DirBuilder::new();
+    /// let mut builder = tokio_uring_ooo::fs::DirBuilder::new();
     /// builder.recursive(true);
     /// ```
     #[must_use]
@@ -75,7 +75,7 @@ impl DirBuilder {
     /// # Examples
     ///
     /// ```
-    /// let mut builder = tokio_uring::fs::DirBuilder::new();
+    /// let mut builder = tokio_uring_ooo::fs::DirBuilder::new();
     /// builder.mode(0o700);
     /// ```
     #[must_use]
@@ -93,9 +93,9 @@ impl DirBuilder {
     /// # Examples
     ///
     /// ```no_run
-    /// tokio_uring::start(async {
+    /// tokio_uring_ooo::start(async {
     ///     let path = "/tmp/foo/bar/baz";
-    ///     tokio_uring::fs::DirBuilder::new()
+    ///     tokio_uring_ooo::fs::DirBuilder::new()
     ///         .recursive(true)
     ///         .mode(0o700) // user-only mode: drwx------
     ///         .create(path).await.unwrap();

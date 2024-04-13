@@ -1,6 +1,6 @@
 use crate::driver;
 
-use io_uring::{opcode, IoUring};
+use io_uring_ooo::{opcode, IoUring};
 use std::io;
 use std::mem::ManuallyDrop;
 

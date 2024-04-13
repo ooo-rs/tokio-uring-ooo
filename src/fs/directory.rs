@@ -20,10 +20,10 @@ use std::path::Path;
 /// # Examples
 ///
 /// ```no_run
-/// use tokio_uring::fs::create_dir;
+/// use tokio_uring_ooo::fs::create_dir;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         create_dir("/some/dir").await?;
 ///         Ok::<(), std::io::Error>(())
 ///     })?;
@@ -59,10 +59,10 @@ pub async fn create_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
 /// # Examples
 ///
 /// ```no_run
-/// use tokio_uring::fs::remove_dir;
+/// use tokio_uring_ooo::fs::remove_dir;
 ///
 /// fn main() -> Result<(), Box<dyn std::error::Error>> {
-///     tokio_uring::start(async {
+///     tokio_uring_ooo::start(async {
 ///         remove_dir("/some/dir").await?;
 ///         Ok::<(), std::io::Error>(())
 ///     })?;
